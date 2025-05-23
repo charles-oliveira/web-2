@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from myapp.views import ReportViewSet, CategoryViewSet, IncomeViewSet, ExpenseViewSet
+from myapp.api.v1.viewsets import ReportViewSet, CategoryViewSet, IncomeViewSet, ExpenseViewSet
 
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet)

@@ -31,9 +31,9 @@ class Transaction(BaseModel):
     date = models.DateField()
     description = models.TextField(blank=True, null=True)
     category = models.ForeignKey(
-        Category, 
+        Category,
         on_delete=models.PROTECT,
-        related_name='%(class)s_transactions'  # Isso criará nomes únicos
+        related_name='%(class)s_transactions'  # Nome dinâmico
     )
 
     class Meta:
