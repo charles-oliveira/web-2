@@ -1,17 +1,27 @@
+from .models import Category, Transaction, UserProfile, UserSettings
 from django.contrib import admin
-from .models import Category, Income, Expense
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'type', 'is_deleted')
-    list_filter = ('type', 'is_deleted')
+    list_display = ('name', 'user', 'created_at')
+    list_filter = ('user',)
+    search_fields = ('name',)
 
-@admin.register(Income)
-class IncomeAdmin(admin.ModelAdmin):
-    list_display = ('source', 'amount', 'date', 'is_deleted')
-    list_filter = ('is_deleted', 'category')
+@admin.register(Transaction)
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ('description', 'amount', 'type', 'category', 'user', 'date')
+    list_filter = ('type', 'category', 'user', 'date')
+    search_fields = ('description',)
+    date_hierarchy = 'date'
 
-@admin.register(Expense)
-class ExpenseAdmin(admin.ModelAdmin):
-    list_display = ('description', 'amount', 'date', 'payment_method', 'is_deleted')
-    list_filter = ('is_deleted', 'category', 'payment_method')
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'phone', 'city', 'state', 'country')
+    list_filter = ('country', 'state')
+    search_fields = ('user__username', 'phone', 'city')
+
+@admin.register(UserSettings)
+class UserSettingsAdmin(admin.ModelAdmin):
+    list_display = ('user', 'email_notifications', 'push_notifications', 'dark_mode', 'language')
+    list_filter = ('dark_mode', 'language')
+    search_fields = ('user__username',)
